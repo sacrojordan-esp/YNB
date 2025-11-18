@@ -1,0 +1,21 @@
+1 Descargar e instalar Python	Ir a https://www.python.org
+3 Descargar el ZIP y extraer en el escritorio, renombra la carpeta y llamala YNB
+3 Accede al archivo .env y agrega tu token entre las comillas: DISCORD_TOKEN='tu_token_aquí'
+
+---Instalacion del bot---
+Abrir CMD:	Presiona Win + R, escribe cmd y presiona Enter.
+
+cd %userprofile%\Desktop\YNB       Navegar al Escritorio		
+py -m venv venv                    Crear un entorno virtual
+.\venv\Scripts\activate            Activar el entorno virtual	
+pip install -r requirements.txt    Instalar requirements.txt
+
+---Para ejecutar el bot en otras ocasiones---
+Abrir CMD:	Presiona Win + R, escribe cmd y presiona Enter.
+
+cd %userprofile%\Desktop\YNB       Entrar a la carpeta
+.\venv\Scripts\activate            Activar el entorno virtual
+python main.py	                   Ejecutar el bot
+
+
+CONTROL + C para detener el proceso del bot ejecutandose

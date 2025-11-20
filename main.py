@@ -17,21 +17,6 @@ tree = app_commands.CommandTree(bot)
 # --- Variables globales ---
 jugadores_lista = []
 jugadores_restantes = []
-enemigos = {}
-
-# --- Clase Enemigo ---
-class Enemigo:
-    def __init__(self, nombre, vida):
-        self.nombre = nombre
-        self.vida = vida
-
-    def recibir_daño(self, daño):
-        self.vida -= daño
-        if self.vida <= 0:
-            self.vida = 0
-            return f"💀 {self.nombre} ha sido derrotado."
-        else:
-            return f"{self.nombre} recibió {daño} de daño. ❤️ Vida restante: {self.vida}"
 
 # --- Slash Commands ---
 
@@ -67,7 +52,7 @@ async def jugadores(interaction: discord.Interaction, nombres: str):
     global jugadores_lista, jugadores_restantes
     jugadores_lista = nombres.split()
     jugadores_restantes = jugadores_lista.copy()
-    await interaction.response.send_message(f"✅ Jugadores registrados: {', '.join(jugadores_lista)}")
+    await interaction.response.send_message(f"✅ Jugadores registrados: {' '.join(jugadores_lista)}")
 
 # ---------------------------
 
@@ -82,122 +67,6 @@ async def objetivo(interaction: discord.Interaction):
     random.shuffle(lista_m)
     nombres = ", ".join(f"**{x}**" for x in lista_m)
     await interaction.response.send_message(f"🎯 **Orden de objetivos:**\n{nombres}")
-
-# ---------------------------
-
-@tree.command(name="spawn", description="Crea uno o varios enemigos con la misma vida.")
-@app_commands.describe(nombre="Nombre base del enemigo", vida="Puntos de vida", cantidad="Número de enemigos (opcional)")
-async def spawn(interaction: discord.Interaction, nombre: str, vida: int, cantidad: int = 1):
-    global enemigos
-
-    creados = []
-
-    for i in range(cantidad):
-        nombre_final = f"{nombre} {i+1}" if cantidad > 1 else nombre
-
-        if nombre_final in enemigos:
-            await interaction.response.send_message(f"⚠️ El enemigo '{nombre_final}' ya existe, omitido.", ephemeral=True)
-            continue
-
-        enemigos[nombre_final] = Enemigo(nombre_final, vida)
-        creados.append(nombre_final)
-
-    if creados:
-        lista = ", ".join(creados)
-        await interaction.response.send_message(f"☣️ Spawn: {lista} con 💔 {vida} de vida cada uno.")
-    else:
-        await interaction.response.send_message("⚠️ No se creó ningún enemigo nuevo.", ephemeral=True)
-
-# ---------------------------
-
-@tree.command(name="atacar", description="Aplica daño a un enemigo existente.")
-@app_commands.describe(daño="Cantidad de daño a infligir")
-async def atacar(interaction: discord.Interaction, daño: int):
-    global enemigos
-
-    # Filtramos solo los enemigos con vida > 0
-    enemigos_vivos = {nombre: e for nombre, e in enemigos.items() if e.vida > 0}
-
-    if not enemigos_vivos:
-        await interaction.response.send_message("💀 No hay enemigos vivos para atacar.")
-        return
-
-    # Crear opciones del menú con los enemigos vivos
-    opciones = [
-        discord.SelectOption(label=e.nombre, description=f"❤️ Vida: {e.vida}")
-        for e in enemigos_vivos.values()
-    ]
-
-    opciones = opciones[:25]  # Discord solo permite máximo 25 opciones por menú
-
-    # Clase View con menú desplegable
-    class AtacarView(View):
-        def __init__(self):
-            super().__init__(timeout=30)
-
-            # Crear el menú de selección dentro del View
-            self.select = Select(
-                placeholder="Selecciona un enemigo para atacar ⚔️",
-                options=opciones
-            )
-
-            # Asignar el callback del menú
-            self.select.callback = self.seleccionar
-
-            # Agregar el select al View
-            self.add_item(self.select)
-
-        async def seleccionar(self, interaction2: discord.Interaction):
-            enemigo_nombre = self.select.values[0]
-            enemigo = enemigos.get(enemigo_nombre)
-
-            if not enemigo or enemigo.vida <= 0:
-                await interaction2.response.send_message(
-                    f"⚠️ El enemigo '{enemigo_nombre}' ya no está disponible.", ephemeral=True
-                )
-                return
-
-            resultado = enemigo.recibir_daño(daño)
-            await interaction2.response.send_message(f"⚔️ {resultado}")
-
-            # Cierra el menú después de la selección
-            self.stop()
-
-    # Crear la vista y mostrar el menú
-    view = AtacarView()
-
-    await interaction.response.send_message(
-        "🎯 **Selecciona al enemigo que deseas atacar:**",
-        view=view
-    )
-# ---------------------------
-
-@tree.command(name="enemigos", description="Muestra todos los enemigos vivos y sus vidas.")
-async def enemigos_lista(interaction: discord.Interaction):
-    global enemigos
-
-    # Filtrar solo los que tienen vida > 0
-    enemigos_vivos = [e for e in enemigos.values() if e.vida > 0]
-
-    if not enemigos_vivos:
-        await interaction.response.send_message("💀 No hay enemigos vivos actualmente.")
-        return
-
-    lista_texto = "\n".join(f"☣️  {e.nombre}: 💔 {e.vida}" for e in enemigos_vivos)
-    await interaction.response.send_message(f"📜 **Enemigos vivos:**\n{lista_texto}")
-
-@tree.command(name="elimina_enemigos", description="Elimina a todos los enemigos registrados.")
-async def limpia_enemigos(interaction: discord.Interaction):
-    global enemigos
-
-    if not enemigos:
-        await interaction.response.send_message("⚠️ No hay enemigos para eliminar.")
-        return
-
-    cantidad = len(enemigos)
-    enemigos.clear()  # 🧹 Limpiatodo el diccionario
-
-    await interaction.response.send_message(f"🧨 Todos los enemigos ({cantidad}) fueron eliminados del registro.")
 
 # ---------------------------
 

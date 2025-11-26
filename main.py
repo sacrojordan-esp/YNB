@@ -34,15 +34,19 @@ async def porcentaje(interaction: discord.Interaction, porcentaje: int):
         await interaction.response.send_message(f"❌ **No**   (*{porcentaje}*%)")
 
 @tree.command(name="dado", description="Otorga un numero aleatorio entre dos valores.")
-@app_commands.describe(a="Valor de tu perk", b="Valor mínimo del rango (entre 0 y 100)", c="Valor máximo del rango (entre 0 y 100)")
-async def numero(interaction: discord.Interaction, a: int, b: int, c: int):
+@app_commands.describe(a="Valor de tu perk", b="Valor mínimo del rango", c="Valor máximo del rango", armor_enemy="(Opcional) Armadura del enemigo")
+async def numero(interaction: discord.Interaction, a: int, b: int, c: int, armor_enemy:int=0):
     if b < 0 or c > 100:
         await interaction.response.send_message("⚠️ El numero debe estar entre 0 y 100.")
         return
 
     azar1 = random.randint(1, a)
     azar = random.randint(b, c)
-    await interaction.response.send_message(f"*[1d{a} → {azar1}]* \n*[{b}-{c} → {azar}]*\n🎲 **{azar1 + azar}**")
+    total = azar1 + azar - armor_enemy
+    if armor_enemy != 0:
+        await interaction.response.send_message(f"1d{a}: {azar1}  |  Rango({b}-{c}): {azar}  |  DEF: {armor_enemy} \n*{azar1}+{azar}-{armor_enemy}* → **🎲{total}**")
+    else:
+        await interaction.response.send_message(f"1d{a}: {azar1}  |  Rango({b}-{c}): {azar} \n*{azar1}+{azar}* → **🎲{total}**   ")
 
 # ---------------------------
 

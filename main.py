@@ -48,6 +48,37 @@ async def numero(interaction: discord.Interaction, a: int, b: int, c: int, armor
     else:
         await interaction.response.send_message(f"1d{a}: {azar1}  |  Rango({b}-{c}): {azar} \n*{azar1}+{azar}* → **🎲{total}**   ")
 
+@tree.command(name="multidado", description="Otorga un numero aleatorio entre dos valores.")
+@app_commands.describe(a="Valor de tu perk", b="Valor mínimo del rango", c="Valor máximo del rango",d="Numero de disparos", armor_enemy="(Opcional) Armadura del enemigo")
+async def multidado(interaction: discord.Interaction, a: int, b: int, c: int, d:int, armor_enemy:int=0):
+    rafaga = []
+    daño = 0
+    if b < 0 or c > 100:
+        await interaction.response.send_message("⚠️ El numero debe estar entre 0 y 100.")
+        return
+    for disparo in range(0,d):
+        azar1 = random.randint(1, a)    
+        azar = random.randint(b, c)
+        tiro = azar1 + azar - armor_enemy
+        rafaga.append(tiro)
+        daño += tiro
+
+    daño_total = daño - armor_enemy
+    daño_total_armor = daño -armor_enemy * d
+
+    if armor_enemy != 0:
+        await interaction.response.send_message(
+    f"*Disparos: {d} x 1d{a}({b}~{c}) | DEF: {armor_enemy}*\n"
+    f"Resultados: {rafaga}\n"
+    f"DEF: {armor_enemy} x {d} = -{armor_enemy*d}\n"
+    f"**🎲 {daño_total_armor}**"
+)
+    else:
+        await interaction.response.send_message(
+    f"*Disparos: {d} x 1d{a}({b}~{c}) *\n"
+    f"Resultados: {rafaga}\n"
+    f"**🎲 {daño_total}**"
+)
 # ---------------------------
 
 @tree.command(name="jugadores", description="Registra una lista de jugadores.")

@@ -1,0 +1,11 @@
+{
+"enemigos": [
+    {"name": "Muta Escorpio","damage": 16},
+    {"name": "Ratas Normales","damage": 2},
+    {"name": "Rata Topo","damage": 5},
+
+    {"name": "Saqueador lvl 1","damage": 6},
+    {"name": "Saqueador lvl 2","damage": 15},
+    {"name": "Saqueador lvl 3","damage": 25}
+]
+}

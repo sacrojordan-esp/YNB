@@ -1,24 +1,19 @@
-1 Descargar e instalar Python entrando a https://www.python.org
+1 Descargar e instalar Python entrando a https://www.python.org 
+
 2 Descargar el ZIP y extraer en el escritorio, renombra la carpeta y llamala YNB
 3 Accede al archivo .env y agrega tu token entre las comillas: DISCORD_TOKEN='tu_token_aquí'
 
 ---Instalacion del bot---
-En el buscador de Windows escribir CMD y dar ENTER - Esto abrira "Simbolo del Sistema"
-Pegar cada uno de estos codigos y dar ENTER.
+1) Abrir CMD en Windows y escribir: 
+      wsl --install Ubuntu
+2) Descargar Docker Desktop, instalarlo y abrirlo
 
-cd %userprofile%\Desktop\YNB       Navegar al Escritorio		
-py -m venv venv                    Crear un entorno virtual
-.\venv\Scripts\activate            Activar el entorno virtual	
-pip install -r requirements.txt    Instalar requirements.txt
+---Para prender el bot---
+3) Abrir CMD en Windows y escribir: 
+      cd Desktop/YNB
+      docker compose up -d
+Ahora puede cerrar el CMD y el bot correra mientras tenga la pc encendida.
 
--Cerrar la ventana-
-
----Para ejecutar el bot---
-En el buscador de Windows escribir CMD y dar ENTER - Esto abrira "Simbolo del Sistema"
-Pegar cada uno de estos codigos y dar ENTER.
-
-cd %userprofile%\Desktop\YNB       Entrar a la carpeta
-.\venv\Scripts\activate            Activar el entorno virtual
-python main.py	                   Ejecutar el bot
-
-CONTROL + C para detener el proceso del bot ejecutandose
+---Para apagar el bot---
+4) Abrir CMD y escribir:
+      docker compose down

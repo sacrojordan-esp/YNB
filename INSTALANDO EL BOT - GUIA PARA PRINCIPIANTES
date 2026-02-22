@@ -1,13 +1,13 @@
 Activar la ejecucion de scripts entrando a PowerShell, Ejecutando como administrador y escribiendo
       - Set-ExecutionPolicy RemoteSigned (y enter)
       - S (y enter)
-Descargar el ZIP y extraer en el escritorio, renombra la carpeta y llamala YNB
+Descarga el ZIP y extrae en el escritorio, renombra la carpeta y llamala YNB
 Accede al archivo .env y agrega tu token entre las comillas: DISCORD_TOKEN='tu_token_aquí'
 
 ---Instalacion del bot---
 1) Abrir CMD en Windows y escribir: 
       wsl --install Ubuntu
-2) En el buscador de Windows buscar: Caracteristicas de Windows y activar:
+2) En el buscador de Windows buscar Caracteristicas de Windows y activar:
       - Virtual Machine Plataform
       - Windows Subsystem for Linux 
       (---Podrian estar en español---)

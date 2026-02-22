@@ -1,5 +1,3 @@
-Descargar e instalar Python entrando a https://www.python.org 
-
 Descargar el ZIP y extraer en el escritorio, renombra la carpeta y llamala YNB
 Accede al archivo .env y agrega tu token entre las comillas: DISCORD_TOKEN='tu_token_aquí'
 

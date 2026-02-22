@@ -22,6 +22,9 @@ Accede al archivo .env y agrega tu token entre las comillas: DISCORD_TOKEN='tu_t
       docker compose up -d
 Ahora puede cerrar el CMD y el bot correra mientras tenga la pc encendida.
 
+--Verificar si el bot prendio--
+En CMD escribir: docker ps -a, deberia decir STATUS-Up x seconds
+
 ---Para apagar el bot---
 6) Abrir CMD y escribir:
       docker compose down

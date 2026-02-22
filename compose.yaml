@@ -1,0 +1,6 @@
+services:
+  ynb:
+    image: ynb
+    build:
+      context: .
+      dockerfile: ./Dockerfile

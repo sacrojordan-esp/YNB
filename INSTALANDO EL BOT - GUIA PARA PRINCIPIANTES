@@ -1,4 +1,4 @@
-Activar la ejecucion de scripts entrando a PowerSheell, Ejecutando como administrador y escribiendo
+Activar la ejecucion de scripts entrando a PowerShell, Ejecutando como administrador y escribiendo
       - Set-ExecutionPolicy RemoteSigned (y enter)
       - S (y enter)
 Descargar el ZIP y extraer en el escritorio, renombra la carpeta y llamala YNB

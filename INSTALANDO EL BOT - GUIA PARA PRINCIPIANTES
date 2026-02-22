@@ -1,3 +1,6 @@
+Activar la ejecucion de scripts entrando a PowerSheell, Ejecutando como administrador y escribiendo
+      - Set-ExecutionPolicy RemoteSigned (y enter)
+      - S (y enter)
 Descargar el ZIP y extraer en el escritorio, renombra la carpeta y llamala YNB
 Accede al archivo .env y agrega tu token entre las comillas: DISCORD_TOKEN='tu_token_aquí'
 

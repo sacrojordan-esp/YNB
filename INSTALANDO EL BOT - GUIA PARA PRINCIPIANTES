@@ -7,14 +7,15 @@ Accede al archivo .env y agrega tu token entre las comillas: DISCORD_TOKEN='tu_t
 2) En el buscador de Windows buscar: Caracteristicas de Windows y activar:
       - Virtual Machine Plataform
       - Windows Subsystem for Linux 
+      (---Podrian estar en español---)
 3) Descargar Docker Desktop, instalarlo y abrirlo
 
 ---Para prender el bot---
-3) Abrir CMD en Windows y escribir: 
+4) Abrir CMD en Windows y escribir: 
       cd Desktop/YNB
       docker compose up -d
 Ahora puede cerrar el CMD y el bot correra mientras tenga la pc encendida.
 
 ---Para apagar el bot---
-4) Abrir CMD y escribir:
+5) Abrir CMD y escribir:
       docker compose down
